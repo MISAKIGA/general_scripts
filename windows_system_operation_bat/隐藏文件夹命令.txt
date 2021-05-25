@@ -1,0 +1,4 @@
+attrib +s +h src
+
+
+#解除 attrib -s -h src

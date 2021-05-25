@@ -1,0 +1,3 @@
+@ECHO OFF
+
+TASKKILL /T /F  /IM "C+WC*"

@@ -1,0 +1,11 @@
+@echo off
+
+:STARTRUN
+SC QUERY vmms | FINDSTR "STOPPED" > NUL && ECHO vmms服务没有启动 & GOTO STARTSERVICE || GOTO RUNVIRTMGMT
+
+:STARTSERVICE
+NET START vmms >NUL && EXIT || ECHO HTPER-V_vmms START ERROR：请确认已经"以管理员权限运行"该bat & PAUSE & EXIT
+GOTO STARTRUN
+
+:RUNVIRTMGMT
+%windir%\System32\virtmgmt.msc

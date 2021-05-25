@@ -1,0 +1,254 @@
+{
+  "id": "0d3f6281-efdb-416e-93d6-98ce9030a399",
+  "version": "2.0",
+  "name": "aa",
+  "url": "http://www.baidu.com",
+  "tests": [{
+    "id": "1e7b1d42-7aa5-4324-b162-31f82f65a64e",
+    "name": "Untitled",
+    "commands": [{
+      "id": "6e0a5b33-feac-4d92-a41f-c96bd4af4215",
+      "comment": "",
+      "command": "open",
+      "target": "http://stu.ityxb.com/learning/ef4f3417e76848818efc60228668043b/preview/list",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c9d92de9-2855-48ff-826b-be369eb067c2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1108x775",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b851e53-627e-48a9-90f1-640a6dc6f5b1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.el-table__row:nth-child(1) span",
+      "targets": [
+        ["css=.el-table__row:nth-child(2) span", "css:finder"],
+        ["xpath=//tr[2]/td[6]/div/a/span", "xpath:position"]
+      ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win5120",
+      "windowTimeout": 2000
+    }, {
+      "id": "655335a7-f2b3-4bf7-88c1-bd67992def98",
+      "comment": "",
+      "command": "storeWindowHandle",
+      "target": "root",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "56693e7f-ff15-4bf0-8175-7563068fae5d",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win5120}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e2330d59-d305-402b-9952-2299f9df6c8e",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelectorAll(\".el-scrollbar__view .chapter-item-box\").length",
+      "targets": [],
+      "value": "len"
+    }, {
+      "id": "13d1ac3c-7dff-4f86-bedf-08dfe1c5d783",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 1",
+      "targets": [],
+      "value": "j"
+    }, {
+      "id": "98a08d42-9f8a-4d35-b8ce-35aa0a4c05ff",
+      "comment": "",
+      "command": "while",
+      "target": "${j}<=${len}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4dfa89c-8251-453c-b422-5ff251ca6b89",
+      "comment": "",
+      "command": "if",
+      "target": "${j}!=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "dfc5089c-35d6-425d-a47e-363cb83340ac",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chapter-item-box:nth-child(${j}) .chapter-text",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "412732f4-adf1-4640-aa37-df83ea2b54b8",
+      "comment": "",
+      "command": "//executeScript",
+      "target": "return ${j}+1",
+      "targets": [],
+      "value": "cc"
+    }, {
+      "id": "3193c847-4ebf-4aef-bf73-1f19c112a6fa",
+      "comment": "",
+      "command": "//click",
+      "target": "css=.chapter-item-box:nth-child(${cc}) .chapter-text",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2458c01b-7a16-4ba0-94c0-97872b108a68",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81d3c759-c7ec-4f6c-baf3-966cc17fa093",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelectorAll(\".chapter-item-box:nth-child(\"+${j}+\") .point-item-box\").length",
+      "targets": [],
+      "value": "title_len"
+    }, {
+      "id": "3d132fb3-1ead-4f13-826a-f1706cbe590c",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 1",
+      "targets": [],
+      "value": "i"
+    }, {
+      "id": "42dcb183-dd2a-4c24-8e1a-29d5ec182a20",
+      "comment": "",
+      "command": "while",
+      "target": "${i}<=${title_len}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4dc1f044-5ea4-4f55-806b-ca717b8c13ad",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chapter-item-box:nth-child(${j}) .point-item-box:nth-child(${i}) .point-name-box",
+      "targets": [
+        ["css=.preview-details-box", "css:finder"],
+        ["xpath=//div[3]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ce7d9b81-3441-4366-88e0-c8ab7d74a9df",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return document.querySelector(\".chapter-item-box:nth-child(\"+${j}+\") .point-item-box:nth-child(\"+${i}+\") .point-name-box .point-progress-box\").innerText",
+      "targets": [],
+      "value": "data"
+    }, {
+      "id": "41261ad7-e708-4ede-906f-f4827b1297bd",
+      "comment": "",
+      "command": "echo",
+      "target": "${data}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b0b2aed9-c28e-42c5-b5e8-31b4fa5e2dd0",
+      "comment": "",
+      "command": "if",
+      "target": "${data}!=\"100%\"",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7269189a-6f30-4c02-b9c4-f3c4c9bf3824",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f8c4bdd-0d06-49f5-9814-ea987f713cfb",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return \"css=.\"+document.querySelectorAll(\"#videoPlayer div\")[30].className",
+      "targets": [],
+      "value": "ele"
+    }, {
+      "id": "b900b3ed-d8a7-4e15-a19d-ecba505dcc4b",
+      "comment": "",
+      "command": "pause",
+      "target": "1000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e92f8f82-e8fc-4a9c-a05a-83bf9fab6449",
+      "comment": "",
+      "command": "doubleClickAt",
+      "target": "${ele}",
+      "targets": [],
+      "value": "900"
+    }, {
+      "id": "4da107df-5da3-44dd-b987-ad0b08c022f2",
+      "comment": "",
+      "command": "//doubleClickAt",
+      "target": "xpath=//div[@id='videoPlayer']/div/div[4]",
+      "targets": [],
+      "value": "900"
+    }, {
+      "id": "37fc2faf-23b7-4028-a1d4-d0c69f10f39f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#videoPlayer video",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2a9d6e22-1eca-4f58-b0f0-df809552ad2f",
+      "comment": "",
+      "command": "pause",
+      "target": "2000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9f3acb08-35ff-46f7-b603-3f8aec71cde0",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fabb994c-c6ae-4970-89d1-994997e8bd21",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${i}+1",
+      "targets": [],
+      "value": "i"
+    }, {
+      "id": "8b9d3126-af50-4afd-8621-c597581b0f5e",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7ff5f559-119b-46c7-afe3-d846bc38ee23",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${j}+1",
+      "targets": [],
+      "value": "j"
+    }, {
+      "id": "03b8fd37-a814-421b-b75f-ec057434a4c6",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "1c3a0a82-0b1f-4a14-853b-c359f4b765db",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1e7b1d42-7aa5-4324-b162-31f82f65a64e"]
+  }],
+  "urls": ["http://stu.ityxb.com/learning/ef4f3417e76848818efc60228668043b/preview/list", "http://www.baidu.com/"],
+  "plugins": []
+}
