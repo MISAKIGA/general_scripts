@@ -113,13 +113,19 @@ def subject_title_name(url, cookie):
     else:
         print('响应信息返回错误(如果是needLogin请检查你的cookie是否为最新): {0}'.format(json_content['resultObject']))
 
-
 if __name__ == '__main__':
-    # 拿到自己的账号COOKIE
-    cookie = 'UM_distinctid=1784984bc0214d-013a2949a9b0d-53e356a-100200-1784984bc036e8; Hm_lvt_6d8d9a52ae50c99e6981efe4e12e0d14=1621874407; automaticLogon=true; username=15602203133; pwd=Ts8D1EU1HLslash3QcAYUNW+Pw==; JSESSIONID=C0CE1258C1252805FCA70CB68C0470EF; CNZZDATA1273545537=1550963213-1583310773-%7C1621881408; _uc_t_=686026%3B15602203133%3B2f940803f7584aeabb33c5a5f227fd68%3Bbxg%3B1621970731941; zg_did=%7B%22did%22%3A%20%22170a4f1f5961f8-02a802dcb16255-67e1b3f-1fa400-170a4f1f5972ec%22%7D; zg_359878badcb44bf88a748ad7859455ea=%7B%22sid%22%3A%201621884331105%2C%22updated%22%3A%201621884553863%2C%22info%22%3A%201621874406136%2C%22superProperty%22%3A%20%22%7B%5C%22platform%5C%22%3A%20%5C%22PCS%5C%22%7D%22%2C%22platform%22%3A%20%22%7B%7D%22%2C%22utm%22%3A%20%22%7B%7D%22%2C%22referrerDomain%22%3A%20%22%22%2C%22landHref%22%3A%20%22http%3A%2F%2Fstu.ityxb.com%2Flearning%2F95af39e948ff46b9a173a1ff8c55a296%2Fpreview%2Flist%22%2C%22cuid%22%3A%20%22acba544870c34f6cb26d46c25c9d4de7%22%2C%22zs%22%3A%200%2C%22sc%22%3A%200%2C%22firstScreen%22%3A%201621884331105%7D; Hm_lpvt_6d8d9a52ae50c99e6981efe4e12e0d14=1621884554'
     
-    # 输入你要下载的科目ID
-    subject_id = '091fb4bdc4974caeaae96515ada97883'
+    # 拿到自己的账号COOKIE
+    cookie = ''
+    # 输入你要下载的课程ID
+    subject_id = ''
+
+    if cookie == '' or subject_id == '':
+    	print('请输入你的Cookie，可以在浏览器打开网站按 F12 查看：')
+    	cookie = input()
+
+    	print('请输入你要下载的课程ID，详细教程在  ：')
+    	subject_id = input()
 
     preview_info_url = 'http://stu.ityxb.com/back/bxg/preview/info?previewId=' + subject_id
 
