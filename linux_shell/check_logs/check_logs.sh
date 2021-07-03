@@ -8,6 +8,7 @@
 ######################################################################
 
 load_var(){
+
     # 默认配置
     # 0 为启动，1 为关闭
     verbose=0
@@ -60,10 +61,40 @@ check_dirs(){
     do
         check_dir_all_logs $filepath 
     done
+}
 
-    unset log_dirs
-    unset filter_log_file
-    unset matched_pattern
+# -------------------------
+# 获取后缀为txt或log的文件，并过滤指定的字符串数组
+# 参数：filepath filename
+check_filename()
+{
+    filepath=$1
+    filename=$2
+    file=$filepath/$filename
+    
+    if [ "${file##*.}"x = "txt"x ] || [ "${file##*.}"x = "log"x ];then
+        
+        # 过滤指定的日志文件，并存到数组中
+        if [ $matched_pattern -eq 0 ];then
+            if [[ ${filter_log_file[@]}  =~ $filename ]]; then
+                temp_logs_files[${#temp_logs_files[@]}]=$file
+            fi
+        else 
+            if [[ ! ${filter_log_file[@]}  =~ $filename ]]; then
+                temp_logs_files[${#temp_logs_files[@]}]=$file
+            fi
+        fi
+
+        # 很奇怪，代码集成后这段无法运行，方法单元测试没问题。
+        #if [[ $matched_pattern -eq 0 && "${filter_log_file[@]}" =~ "$filename" ]];then
+        #    echo "fp $file。${#temp_logs_files[@]} ，${temp_logs_files[0]}"
+        #    temp_logs_files[${#temp_logs_files[@]}]=$file
+        #else if [[ $matched_pattern -eq 1 && ! "${filter_log_file[@]}" =~ "$filename" ]];then
+        #    echo "fp $file。${#temp_logs_files[@]} ，${temp_logs_files[0]}"
+        #    temp_logs_files[${#temp_logs_files[@]}]=$file
+        #fi
+        #fi
+    fi 
 }
 
 # -----------------------------
@@ -72,7 +103,7 @@ check_dirs(){
 traverse_dir()
 {
     filepath=$1
-    
+
     for file in `ls -a $filepath`
     do
         if [ -d ${filepath}/$file ]
@@ -87,27 +118,6 @@ traverse_dir()
             check_filename ${filepath} $file
         fi
     done
-}
- 
-# -------------------------
-# 获取后缀为txt或log的文件，并过滤指定的字符串数组
-# 参数：filepath filename
-check_filename()
-{
-    filepath=$1
-    filename=$2
-    file=$filepath/$filename
-    
-    if [ "${file##*.}"x = "txt"x ] || [ "${file##*.}"x = "log"x ];then
-        
-        # 过滤指定的日志文件，并存到数组中
-        if [[ $matched_pattern -eq 0 && $filename =~ "${filter_log_file[@]}" ]];then
-            temp_logs_files[${#temp_logs_files[@]}]=$file
-        else if [[ $matched_pattern -eq 1 && ! $filename =~ "${filter_log_file[@]}" ]];then
-            temp_logs_files[${#temp_logs_files[@]}]=$file
-        fi
-        fi
-    fi 
 }
 
 #-----------------------
@@ -184,8 +194,6 @@ check_log_file(){
 # 参数：filter_log_file matched_pattern filepath
 check_dir_all_logs(){
 
-    echo $filter_log_file $matched_pattern $filepath 
-
     # 递归遍历指定目录 
     traverse_dir $1
 
@@ -200,10 +208,10 @@ check_dir_all_logs(){
         echo "没有扫描到对应 log 文件。请检查目录！"
     fi
 
-    unset temp_logs_files
+    # unset temp_logs_files
 }
 
-clear
+# clear
 # Run the main function 
 main
 
