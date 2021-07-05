@@ -39,6 +39,11 @@ check_logs
 4. 运行脚本
 
    ```sh
+   cd ./check_logs/
+   
+   # 授权
+   sudo chmod +x check_logs.sh
+   
    ./check_logs.sh
    # OR
    . check_logs.sh
@@ -48,6 +53,6 @@ check_logs
    # 此外，您还可以将配置文件放置到其他位置，输入命令时将配置路径指定即可
    ./check_logs.sh ${your_conf_path}
    ```
-
+   
    
 
