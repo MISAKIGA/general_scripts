@@ -5,3 +5,9 @@
 |   类型  |   链接  |
 | --- | --- |
 |  下载类爬虫脚本   |   [说明文档](./spider/python/download/README.md)   |
+|  运维类爬虫脚本   |   [说明文档](./linux_shell/DevOps/check_logs/README.md)   |
+
+## Shell 脚本
+|   类型  |   链接  |
+| --- | --- |
+|  运维类爬虫脚本   |   [说明文档](./linux_shell/DevOps/check_logs/README.md)   |
