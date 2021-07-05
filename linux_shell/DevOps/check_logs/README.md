@@ -44,8 +44,6 @@ check_logs
    # 授权
    sudo chmod +x check_logs.sh
    
-   ./check_logs.sh
-   # OR
    . check_logs.sh
    # OR
    source check_logs.sh
@@ -54,5 +52,12 @@ check_logs
    ./check_logs.sh ${your_conf_path}
    ```
    
-   
+
+如果出现 '\r' 报错
+
+```sh
+vi check_logs.sh 
+### Esc 进入命令行运行模式
+### : set ff=unix
+```
 

@@ -61,14 +61,31 @@ check_cluster_logs(){
 # ------------
 # 检查指定的多个目录下的所有日志，每个目录都会遍历其子目录的日志
 check_dirs(){
-    # log_filepaths="/icep_data/eventCenter/realTimeStreaming/logs /data01/eventTransfor/transfor/producer"
-    # filter_log_file="server"
-    # matched_pattern=0
     
     for filepath in $log_dirs
     do
         check_dir_all_logs $filepath 
     done
+}
+
+filter_file(){
+    if [ $matched_pattern == 0 ];then
+
+        for key in $filter_log_file
+        do
+            if [ -n `echo  $1 | grep $key` ];then
+                temp_logs_files[${#temp_logs_files[@]}]=$1
+            fi
+        done
+    else
+        for key in $filter_log_file
+        do
+            if [ -z `echo  $1 | grep $key` ];then
+                temp_logs_files[${#temp_logs_files[@]}]=$1
+            fi
+        done
+    fi
+
 }
 
 # -------------------------
@@ -81,17 +98,9 @@ check_filename()
     file=$filepath/$filename
     
     if [ "${file##*.}"x = "txt"x ] || [ "${file##*.}"x = "log"x ];then
-        
+
         # 过滤指定的日志文件，并存到数组中
-        if [ $matched_pattern -eq 0 ];then
-            if [[ ${filter_log_file[@]}  =~ $filename ]]; then
-                temp_logs_files[${#temp_logs_files[@]}]=$file
-            fi
-        else 
-            if [[ ! ${filter_log_file[@]}  =~ $filename ]]; then
-                temp_logs_files[${#temp_logs_files[@]}]=$file
-            fi
-        fi
+        filter_file $file
 
         # 很奇怪，代码集成后这段无法运行，方法单元测试没问题。
         #if [[ $matched_pattern -eq 0 && "${filter_log_file[@]}" =~ "$filename" ]];then
@@ -167,7 +176,7 @@ check_log_file(){
     do
 
         # 是否打印所有日志
-        if [ ${verbose} -eq 0 ]; then
+        if [ $verbose -eq 0 ]; then
             echo "$line"
         fi
         # 统计 INFO 日志条数
@@ -223,41 +232,3 @@ check_dir_all_logs(){
 # clear
 # Run the main function 
 main
-
-
-# ------------------
-#temp_foldername="/export/servers/kafka_2.12-2.8.0/logs"
-#echo $temp_foldername
-#get_files(){
-#    if [ $temp_foldername -d ]; then
-#    echo $temp_foldername
-        # 如果是一个文件夹，则进行遍历，查看是否有对应的日志文件，获取其文件夹下的所有文件路径
-#        for filename in $temp_foldername/*
-#        do
-#            echo "文件有 $filename"
-            # temp_filepath="$temp_foldername/$filename"
-            # 扫描到文件路径后，将其存储在临时的数组里，后面用来遍历扫描日志文件
-#            temp_logs_files[${#temp_logs_files[@]}]=$filename
-#        done
-#    else
-#        echo "没有该文件夹噢！ $temp_foldername"
-#    fi
-#}
-# 检查日志文件是否有异常, 统计INFO数量，与非INFO数量
-#check_logs(){
-    # 遍历文件名，扫遍该文件并统计日志异常数量
-#    i=0
-#    for log_filename in temp_logs_files
-#    do
-#        temp_machine_files_len = ${#temp_machine_files[@]}
-        # 遍历判断是否是指定的日志文件
-#        if [ $temp_machine_files_len > $i && "${temp_machine_files[$i]}" = "$log_filename" ]; then
-#            temp_filepath="${temp_machine_files[$i]}/$log_filename"
-#            echo "检查 $temp_filepath 日志文件"
-            # 检查日志是否有异常
-#            check_log_file
-#        fi
-#        i = $i+1
-#    done
-#}
-# --------------
