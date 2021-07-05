@@ -72,16 +72,22 @@ filter_file(){
     if [ $matched_pattern == 0 ];then
 
         for key in $filter_log_file
-        do
-            if [ -n `echo  $1 | grep $key` ];then
+        do 
+            if [[ $1 =~ $key ]];then
+
                 temp_logs_files[${#temp_logs_files[@]}]=$1
             fi
         done
     else
         for key in $filter_log_file
-        do
-            if [ -z `echo  $1 | grep $key` ];then
-                temp_logs_files[${#temp_logs_files[@]}]=$1
+        do 
+            if [[ ! $1 =~ $key ]];then
+                
+                if [[ ! $rm_his =~ $1 ]];then
+                    temp_logs_files[${#temp_logs_files[@]}]=$1
+                fi
+            else
+                rm_his[${#rm_his[@]}]=$1
             fi
         done
     fi
@@ -101,16 +107,6 @@ check_filename()
 
         # 过滤指定的日志文件，并存到数组中
         filter_file $file
-
-        # 很奇怪，代码集成后这段无法运行，方法单元测试没问题。
-        #if [[ $matched_pattern -eq 0 && "${filter_log_file[@]}" =~ "$filename" ]];then
-        #    echo "fp $file。${#temp_logs_files[@]} ，${temp_logs_files[0]}"
-        #    temp_logs_files[${#temp_logs_files[@]}]=$file
-        #else if [[ $matched_pattern -eq 1 && ! "${filter_log_file[@]}" =~ "$filename" ]];then
-        #    echo "fp $file。${#temp_logs_files[@]} ，${temp_logs_files[0]}"
-        #    temp_logs_files[${#temp_logs_files[@]}]=$file
-        #fi
-        #fi
     fi 
 }
 
