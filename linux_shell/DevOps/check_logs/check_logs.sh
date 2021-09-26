@@ -4,16 +4,19 @@
 ##                                                                  ##
 ##   检查日志脚本， 运维                                              ##
 ##   MSGA Create by 2021/7/2                                        ##
-##   version: 1.0.0                                                 ##
+##   version: 1.0.3                                                 ##
 ######################################################################
 
-# version 1.0.0
+# version 1.0.3
 # 该版本存在问题：
 # 1. 过滤规则适用于所有文件夹下的所有文件，
 # 这意味着，如果spark的logs下需要过滤的文件与kafka的同名，则会将其都过滤掉。但是现在没有这个需求，先放着
 # 2. 日志只能过滤 INFO 和 非 INFO 信息, 可能会有一些 java 报错给完全显示出来。（宁杀错不放过）
-# 3. 日志显示不够友好，应该在最后才显示统计异常数量
 
+# version 1.0.3 改动
+# 加载配置使用绝对路径，避免了 ssh 连接调用该脚本时出现找不到 conf 文件的情况
+# 新增了 *.out 的日志后缀
+# 日志显在最后显示统计异常数量
 
 load_var(){
 
@@ -40,7 +43,8 @@ main(){
     conf_path=[lindex $argv 0]
 
     if [ -n $conf_path ];then
-        conf_path="./check_logs.conf"
+        curr_path=$(cd $(dirname $0);pwd)
+        conf_path="$curr_path/check_logs.conf"
     fi
     echo "加载配置"
     load_var $conf_path
@@ -64,7 +68,7 @@ check_filename()
     filename=$2
     file=$filepath/$filename
     
-    if [ "${file##*.}"x = "txt"x ] || [ "${file##*.}"x = "log"x ];then
+    if [ "${file##*.}"x = "txt"x ] || [ "${file##*.}"x = "log"x || [ "${file##*.}"x = "out"x ];then
 
         # 过滤指定的日志文件，并存到数组中
         if [ $matched_pattern -eq 1 ];then
